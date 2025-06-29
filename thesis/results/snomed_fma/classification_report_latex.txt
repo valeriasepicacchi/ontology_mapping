@@ -1,0 +1,20 @@
+\begin{tabular}{ |p{2cm}||p{2cm}|p{2cm}|p{2cm}|p{2cm}|  }
+ \hline
+ \multicolumn{5}{|c|}{max negatives = 2, fuzz partial ratio > 30, cosine similarity > 0.3} \\
+ \hline
+  & Precision & Recall & F1 score & support\\
+ \hline
+0   &   0.96  &    0.99   &   0.97    &   2285\\
+ \hline
+1   &   0.97  &    0.93   &   0.95    &   1142\\
+ \hline
+accuracy & & &    0.97    &   3427\\
+ \hline
+macro-avg &   0.97   &   0.96  &    0.96    &   3427\\
+ \hline
+weighted avg &   0.97   &   0.97  &    0.97    &   3427\\
+ \hline
+\end{tabular}
+\\
+\\
+

@@ -1,0 +1,120 @@
+\begin{tabular}{ |p{2cm}||p{2cm}|p{2cm}|p{2cm}|p{2cm}|  }
+ \hline
+ \multicolumn{5}{|c|}{max negatives = 2, fuzz partial ratio > 0, cosine similarity > 0.0, 50 candidates} \\
+ \hline
+  & Precision & Recall & F1 score & support\\
+ \hline
+0   &   1.00  &    1.00   &   1.00    &   249836\\
+ \hline
+1   &   0.80  &    0.55   &   0.65    &   2605\\
+ \hline
+accuracy & & &    0.99    &   252441\\
+ \hline
+macro-avg &   0.90   &   0.77  &    0.82    &   252441\\
+ \hline
+weighted avg &   0.99   &   0.99  &    0.99    &   252441\\
+ \hline
+\end{tabular}
+\\
+\\
+
+\begin{tabular}{ |p{2cm}||p{2cm}|p{2cm}|p{2cm}|p{2cm}|  }
+ \hline
+ \multicolumn{5}{|c|}{max negatives = 2, fuzz partial ratio > 0, cosine similarity > 0.0, 40 candidates} \\
+ \hline
+  & Precision & Recall & F1 score & support\\
+ \hline
+0   &   0.99  &    1.00   &   1.00    &   200664\\
+ \hline
+1   &   0.79  &    0.56   &   0.65    &   2605\\
+ \hline
+accuracy & & &    0.99    &   203269\\
+ \hline
+macro-avg &   0.89   &   0.78  &    0.83    &   203269\\
+ \hline
+weighted avg &   0.99   &   0.99  &    0.99    &   203269\\
+ \hline
+\end{tabular}
+\\
+\\
+
+\begin{tabular}{ |p{2cm}||p{2cm}|p{2cm}|p{2cm}|p{2cm}|  }
+ \hline
+ \multicolumn{5}{|c|}{max negatives = 2, fuzz partial ratio > 0, cosine similarity > 0.0, 30 candidates} \\
+ \hline
+  & Precision & Recall & F1 score & support\\
+ \hline
+0   &   0.99  &    1.00   &   1.00    &   151124\\
+ \hline
+1   &   0.82  &    0.58   &   0.68    &   2605\\
+ \hline
+accuracy & & &    0.99    &   153729\\
+ \hline
+macro-avg &   0.91   &   0.79  &    0.84    &   153729\\
+ \hline
+weighted avg &   0.99   &   0.99  &    0.99    &   153729\\
+ \hline
+\end{tabular}
+\\
+\\
+
+\begin{tabular}{ |p{2cm}||p{2cm}|p{2cm}|p{2cm}|p{2cm}|  }
+ \hline
+ \multicolumn{5}{|c|}{max negatives = 2, fuzz partial ratio > 0, cosine similarity > 0.0, 20 candidates} \\
+ \hline
+  & Precision & Recall & F1 score & support\\
+ \hline
+0   &   0.99  &    1.00   &   0.99    &   101231\\
+ \hline
+1   &   0.84  &    0.59   &   0.69    &   2605\\
+ \hline
+accuracy & & &    0.99    &   103836\\
+ \hline
+macro-avg &   0.92   &   0.79  &    0.84    &   103836\\
+ \hline
+weighted avg &   0.99   &   0.99  &    0.99    &   103836\\
+ \hline
+\end{tabular}
+\\
+\\
+
+\begin{tabular}{ |p{2cm}||p{2cm}|p{2cm}|p{2cm}|p{2cm}|  }
+ \hline
+ \multicolumn{5}{|c|}{max negatives = 2, fuzz partial ratio > 0, cosine similarity > 0.0, 10 candidates} \\
+ \hline
+  & Precision & Recall & F1 score & support\\
+ \hline
+0   &   0.98  &    1.00   &   0.99    &   50912\\
+ \hline
+1   &   0.88  &    0.63   &   0.73    &   2605\\
+ \hline
+accuracy & & &    0.98    &   53517\\
+ \hline
+macro-avg &   0.93   &   0.81  &    0.86    &   53517\\
+ \hline
+weighted avg &   0.98   &   0.98  &    0.98    &   53517\\
+ \hline
+\end{tabular}
+\\
+\\
+
+\begin{tabular}{ |p{2cm}||p{2cm}|p{2cm}|p{2cm}|p{2cm}|  }
+ \hline
+ \multicolumn{5}{|c|}{max negatives = 2, fuzz partial ratio > 0, cosine similarity > 0.0} \\
+ \hline
+  & Precision & Recall & F1 score & support\\
+ \hline
+0   &   1.00  &    1.00   &   1.00    &   298768\\
+ \hline
+1   &   0.78  &    0.54   &   0.64    &   2605\\
+ \hline
+accuracy & & &    0.99    &   301373\\
+ \hline
+macro-avg &   0.89   &   0.77  &    0.82    &   301373\\
+ \hline
+weighted avg &   0.99   &   0.99  &    0.99    &   301373\\
+ \hline
+\end{tabular}
+\\
+\\
+
