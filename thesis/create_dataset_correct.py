@@ -344,9 +344,6 @@ for i, concept1 in enumerate(concepts):
         pairwise_data.append(lexical_features)
     if i>= 10000:
         break
-
-
-    
 # Convert to DataFrame
 print('Save and show features')
 df_features = pd.DataFrame(pairwise_data)
