@@ -36,5 +36,5 @@ To create and activate the environment:
 
 ```bash
 conda env create -f thesis/environment.yml
-conda activate ontology_mapping
+conda activate myenv
 
