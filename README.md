@@ -28,3 +28,13 @@ Three biomedical ontology pairs are used:
 - **OMIM–ORDO**: Genetic vs. rare disease ontologies  
 - **SNOMED–FMA**: Clinical terminology vs. anatomy
 
+## ⚙️ Environment Setup
+
+This project uses a Conda environment for reproducibility.
+
+To create and activate the environment:
+
+```bash
+conda env create -f thesis/environment.yml
+conda activate ontology_mapping
+
