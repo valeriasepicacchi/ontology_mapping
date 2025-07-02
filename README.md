@@ -1,4 +1,4 @@
-# 🧠 Ontology Mapping with Ensemble Learning  
+# Ontology Mapping with Ensemble Learning  
 **Improving Taxonomy Mapping Performance with a Complex Ensemble Algorithm**
 
 This repository contains the code and experiments for the Master's thesis:
