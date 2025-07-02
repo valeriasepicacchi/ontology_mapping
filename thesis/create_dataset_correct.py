@@ -339,11 +339,12 @@ for i, concept1 in enumerate(concepts):
         cross_refs2 = set(g.objects(subject=concept2, predicate=skos.exactMatch))
         print('cross refs 2',cross_refs2)
         lexical_features["Cross-Reference Match"] = 1 if cross_refs1 & cross_refs2 else 0
-        if lexical_features["Cross-Reference Match"] == 1:
-            print('hoorray')
         pairwise_data.append(lexical_features)
     if i>= 10000:
         break
+
+
+    
 # Convert to DataFrame
 print('Save and show features')
 df_features = pd.DataFrame(pairwise_data)

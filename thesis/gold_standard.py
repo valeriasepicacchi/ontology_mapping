@@ -169,6 +169,7 @@ def create_table_result(report_dict,min_lexical_sim,min_cosine_sim,max_neg_per_p
     latex_lines.append("\\begin{tabular}{ |p{2cm}||p{2cm}|p{2cm}|p{2cm}|p{2cm}|  }")
     latex_lines.append(" \\hline")
 
+
     table_title = f"max negatives = {max_neg_per_pos}, fuzz partial ratio > {min_lexical_sim}, cosine similarity > {min_cosine_sim}"
     latex_lines.append(f" \\multicolumn{{5}}{{|c|}}{{{table_title}}} \\\\")
     latex_lines.append(" \\hline")
@@ -216,7 +217,7 @@ def create_table_result(report_dict,min_lexical_sim,min_cosine_sim,max_neg_per_p
     latex_lines.append("\\\\")
 
     # --- Append to text file ---
-    with open("results/snomed_fma/classification_report_latex.txt", "a") as f:  # << HERE: "a" means append
+    with open("results/classification_report_latex.txt", "a") as f:  # << HERE: "a" means append
         f.write("\n".join(latex_lines))
         f.write("\n\n")  # Add some spacing between tables
 
@@ -228,12 +229,11 @@ def main(param1, param2):
     source_graph = Graph()
     target_graph = Graph()
 
-    source_graph.parse("/Users/sepicacchiv/Downloads/bio-ml/snomed-fma.body/snomed.body.owl", format="xml")
-    target_graph.parse("/Users/sepicacchiv/Downloads/bio-ml/snomed-fma.body/fma.body.owl", format="xml")
+    source_graph.parse("/Users/sepicacchiv/Desktop/thesis/MONDO/equiv_match/ontos/omim.owl", format="xml")
+    target_graph.parse("/Users/sepicacchiv/Desktop/thesis/MONDO/equiv_match/ontos/ordo.owl", format="xml")
 
     # --- Step 2: Load Reference Alignment (TSV) ---
-    df_alignment = pd.read_csv("/Users/sepicacchiv/Downloads/bio-ml/snomed-fma.body/refs_equiv/full.tsv", sep="\t")
-
+    df_alignment = pd.read_csv("/Users/sepicacchiv/Desktop/thesis/MONDO/equiv_match/refs/omim2ordo/full.tsv", sep="\t")
     df_alignment['Label'] = df_alignment['Score'].apply(lambda x: 1 if x == 1.0 else 0)
     source_labels = extract_labels(source_graph)
     target_labels = extract_labels(target_graph)
@@ -291,7 +291,7 @@ def create_figure(clf,X_train, y_test,y_pred):
     plt.tight_layout()
 
     # --- Save figure ---
-    plt.savefig(f"results/snomed_fma/partial_ratio_{param1}_cosine_{param2}.png", dpi=300)
+    plt.savefig(f"results/partial_ratio_{param1}cosine{param2}.png", dpi=300)
     # create_table_result(y_test,y_pred,param1,param2,2 )
 
 for param1 in range(0, 101, 10):    # 0, 10, 20, ..., 100
@@ -327,7 +327,3 @@ for param1 in range(0, 101, 10):    # 0, 10, 20, ..., 100
 
         create_table_result(average_report,param1,param2,2 )
         create_figure(clf,X_train, y_test,y_pred)
-
-
-
-

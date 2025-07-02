@@ -5,7 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 from sklearn.metrics import silhouette_score
-from sklearn.metrics import davies_bouldin_score
+from sklearn.metrics import davies_bouldin_scorex
 
 # Read the training set from CSV 
 training_set = pd.read_csv("taxonomy_training_set.csv")
