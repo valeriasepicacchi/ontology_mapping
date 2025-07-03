@@ -7,11 +7,11 @@ import random
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import roc_auc_score
 import shap
+import ace_tools as tools
+import matplotlib.pyplot as plt
 
 # Load the dataset with extracted features
 df_features = pd.read_csv("taxonomy_concept_features.csv")
-
-# Create a dictionary mapping concept URIs to feature vectors
 concept_dict = {row["Concept"]: row.drop(["Concept", "Preferred Label"]).values for _, row in df_features.iterrows()}
 
 # Generate Positive (Equivalent) and Negative (Non-Equivalent) Pairs
@@ -30,12 +30,8 @@ for concept in df_features["Concept"]:
 
 # Ensure balanced dataset
 negative_pairs = random.sample(negative_pairs, min(len(negative_pairs), len(positive_pairs)))
-
-# Combine positive and negative pairs
 pairs = positive_pairs + negative_pairs
 random.shuffle(pairs)
-
-# Convert pairs into feature vectors and labels
 X = []
 y = []
 
@@ -101,22 +97,15 @@ print(f"AUC Score: {auc_score:.4f}")
 # Feature Importance using SHAP
 explainer = shap.Explainer(model, X_train_tensor)
 shap_values = explainer(X_test_tensor)
-
-# Convert SHAP values to feature importance scores
 feature_importance = np.abs(shap_values.values).mean(axis=0)
 feature_names = list(df_features.drop(["Concept", "Preferred Label"], axis=1).columns)
 feature_importance_df = pd.DataFrame({"Feature": feature_names, "Importance": feature_importance})
 
-# Sort features by importance
 feature_importance_df = feature_importance_df.sort_values(by="Importance", ascending=False)
-
-# Display feature importance
-import ace_tools as tools
 tools.display_dataframe_to_user(name="Feature Importance", dataframe=feature_importance_df)
 print("Feature importance computed and displayed.")
 
-# Plot Feature Importance
-import matplotlib.pyplot as plt
+
 plt.figure(figsize=(10, 6))
 plt.barh(feature_importance_df["Feature"], feature_importance_df["Importance"])
 plt.xlabel("Importance Score")
