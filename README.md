@@ -37,4 +37,11 @@ To create and activate the environment:
 ```bash
 conda env create -f thesis/environment.yml
 conda activate myenv
-`
+```
+## Results
+The results for the voting ensamble on the three datasets can be replicated running the main script. The main script outputs results in the shape of tables, that are saved in thesis/results/final_results/voting/final_results.txt 
+Hence, the numerical results for the training on the three datasets with different weights can be found in thesis/results/final_results/voting/final_results.txt
+
+The folder thesis/results is further split in folders, one for each dataset, that show the results for the experiments with feature. It's also included the feature importance bar plot for every dataset and the results for the ablation study.
+
+Based on these numerical results files, images and plot were produced, using the code in thesis/plotting.py
