@@ -446,7 +446,7 @@ def create_table_result(report_dict,min_lexical_sim,min_cosine_sim,max_neg_per_p
     latex_lines.append("\\\\")
 
     # --- Append to text file ---
-    with open("/Users/sepicacchiv/Desktop/thesis/results/final_results/voting/risultati_features_espanse.txt", "a") as f:  # << HERE: "a" means append
+    with open("/Users/valeriasepicacchi/Documents/ontology_mapping/thesis/results/final_results/voting/risultati_features_espanse_prova.txt", "a") as f:  # << HERE: "a" means append
         f.write("\n".join(latex_lines))
         f.write("\n\n")  # Add some spacing between tables
 
@@ -508,8 +508,8 @@ def main(param1, param2):
     source_graph = Graph()
     target_graph = Graph()
 
-    source_graph.parse("/Users/sepicacchiv/Downloads/bio-ml/snomed-fma.body/snomed.body.owl", format="xml")
-    target_graph.parse("/Users/sepicacchiv/Downloads/bio-ml/snomed-fma.body/fma.body.owl", format="xml")
+    source_graph.parse("/Users/valeriasepicacchi/Documents/ontology_mapping/thesis/bio-ml/snomed-fma.body/snomed.body.owl", format="xml")
+    target_graph.parse("/Users/valeriasepicacchi/Documents/ontology_mapping/thesis/bio-ml/snomed-fma.body/fma.body.owl", format="xml")
 
     # --- Step 2: Load Reference Alignment (TSV) ---
     # df_alignment_train = pd.read_csv("/Users/sepicacchiv/Downloads/ncit-doid/refs_equiv/train.tsv", sep="\t")
@@ -526,14 +526,14 @@ def main(param1, param2):
     labels_to_embed = [' '.join(labels) for labels in concept_labels.values()]
     docs = list(nlp.pipe(labels_to_embed, disable=["ner", "parser"]))
 
-    df_train_alignment = pd.read_csv("/Users/sepicacchiv/Downloads/bio-ml/snomed-fma.body/refs_equiv/train.tsv", sep="\t")
+    df_train_alignment = pd.read_csv("/Users/valeriasepicacchi/Documents/ontology_mapping/thesis/bio-ml/snomed-fma.body/refs_equiv/train.tsv", sep="\t")
     df_train_alignment['Label'] = df_train_alignment['Score'].apply(lambda x: 1 if x == 1.0 else 0)
 
     ref_train_mappings = df_train_alignment[df_train_alignment['Label'] == 1][['SrcEntity', 'TgtEntity']].to_dict('records')
 
     concept_embeddings = {uri: doc.vector for uri, doc in zip(concept_labels.keys(), docs)}
 
-    df_test_alignment = pd.read_csv("/Users/sepicacchiv/Downloads/bio-ml/snomed-fma.body/refs_equiv/test.tsv", sep="\t")
+    df_test_alignment = pd.read_csv("/Users/valeriasepicacchi/Documents/ontology_mapping/thesis/bio-ml/snomed-fma.body/refs_equiv/test.tsv", sep="\t")
     df_test_alignment['Label'] = df_test_alignment['Score'].apply(lambda x: 1 if x == 1.0 else 0)
     ref_test_mappings = df_test_alignment[df_test_alignment['Label'] == 1][['SrcEntity', 'TgtEntity']].to_dict('records')
     # ref_train_mappings = pd.DataFrame([{"SrcEntity": m.head, "TgtEntity": m.tail} for m in ref_train_mappings])
