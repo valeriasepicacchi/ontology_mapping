@@ -10,6 +10,7 @@ import shap
 import ace_tools as tools
 import matplotlib.pyplot as plt
 
+''' These experiments for a neural network were run on a company owned dataset and are therefore not reproducible'''
 # Load the dataset with extracted features
 df_features = pd.read_csv("taxonomy_concept_features.csv")
 concept_dict = {row["Concept"]: row.drop(["Concept", "Preferred Label"]).values for _, row in df_features.iterrows()}

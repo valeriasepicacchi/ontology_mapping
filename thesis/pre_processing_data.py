@@ -12,19 +12,21 @@ from sklearn.metrics.pairwise import cosine_similarity
 import matplotlib.pyplot as plt
 import seaborn as sns
 import networkx as nx 
-# Define Namespaces
+
+''' This code was used for the preprocessing of a company owned dataset and is therefore not reproducible '''
+
 skos = Namespace("http://www.w3.org/2004/02/skos/core#")
 skosxl = Namespace("http://www.w3.org/2008/05/skos-xl#")
 DCT = Namespace("http://purl.org/dc/terms/")
 RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
-def create_taxonomy_with_relationships(num_pairs):
+
+def create_taxonomy_with_relationships(num_pairs, path):
     """ 
     Properly generate new concepts while maintaining existing relationships 
     (without modifying exact match creation logic).
     """
-    # Load the original skos RDF graph
     g = Graph()
-    g.parse("emtree_release_202501.xml", format="xml")
+    g.parse(path, format="xml")
 
     # Create a new graph for modified data
     new_graph = Graph()
@@ -78,7 +80,7 @@ def create_taxonomy_with_relationships(num_pairs):
             broader_narrower_relationships.append((new_concept_uri, broader, narrower))
 
         else:
-                        # Preserve the original URI (instead of generating a random one)
+            # Preserve the original URI (instead of generating a random one)
             # print('conto', c)
             new_concept_uri1 = URIRef(str(concept))
             new_concept_uri2 = URIRef(str(concept) +"2")
@@ -176,10 +178,9 @@ def create_taxonomy_with_relationships(num_pairs):
     # new_graph.serialize(destination="new_taxonomy_skos.xml", format="pretty-xml")
     print("New skos file correctly structured and saved as 'new_taxonomy_skos.xml'")
     return new_graph
-# Run the function
+
 g =create_taxonomy_with_relationships(num_pairs=1000)
 
-# Load SpaCy Model for embeddings
 nlp = spacy.load("en_core_web_md")
 
 # Function to compute weighted Jaccard similarity
@@ -301,7 +302,6 @@ for i, concept1 in enumerate(concepts):
 
         label1, label2 = concept_labels[concept1], concept_labels[concept2]
         embed1, embed2 = concept_embeddings[concept1], concept_embeddings[concept2]
-        #find heuristic for dividing into branches
         lexical_features = {
             "Concept1": concept1,
             "Concept2": concept2,   
@@ -333,7 +333,7 @@ for i, concept1 in enumerate(concepts):
             "Shared Narrower Concept": 1 if narrower1 & narrower2 else 0,
         })
         
-        # External knowledge features
+        # references
         cross_refs1 = set(g.objects(subject=concept1, predicate=skos.exactMatch))
         print('cross refs 1',concept1)
         cross_refs2 = set(g.objects(subject=concept2, predicate=skos.exactMatch))
@@ -344,8 +344,7 @@ for i, concept1 in enumerate(concepts):
         break
 
 
-    
-# Convert to DataFrame
+
 print('Save and show features')
 df_features = pd.DataFrame(pairwise_data)
 df_features.to_csv("pairwise_concept_features.csv", index=False)

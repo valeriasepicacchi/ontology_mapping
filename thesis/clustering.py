@@ -6,11 +6,11 @@ import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 from sklearn.metrics import silhouette_score
 from sklearn.metrics import davies_bouldin_scorex
-
+import numpy as np
+''' These experiments were run on a company owned dataset to produce a clustering and are therefore not reproducible'''
 # Read the training set from CSV 
 training_set = pd.read_csv("taxonomy_training_set.csv")
 print(training_set.columns)
-# Combine the Preferred Label
 training_set["Text"] = training_set["Preferred Label"]# + " " + training_set["Alternate Labels"].fillna("")
 
 # TF-IDF Vectorization to convert text into numerical vectors
@@ -18,8 +18,7 @@ vectorizer = TfidfVectorizer(stop_words="english")
 X = vectorizer.fit_transform(training_set["Text"])
 
 print("TF-IDF Matrix Shape:", X.shape)
-# Number of clusters: choose an appropriate value (you can also use techniques like the elbow method)
-n_clusters = 6  # Set to the number of desired clusters
+n_clusters = 6  
 
 # Apply KMeans clustering
 kmeans = KMeans(n_clusters=n_clusters, random_state=42)
@@ -35,9 +34,6 @@ training_set["Cluster"] = kmeans.labels_
 
 # Show the clustered concepts
 print(training_set[["Preferred Label", "Cluster"]].head())
-import numpy as np
-
-# Get the top terms for each cluster
 terms = np.array(vectorizer.get_feature_names_out())
 
 # For each cluster, print the top terms

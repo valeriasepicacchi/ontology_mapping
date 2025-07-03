@@ -1,12 +1,10 @@
 import numpy as np 
 import matplotlib.pyplot as plt 
-from mpl_toolkits.mplot3d import Axes3D
 from matplotlib import cm
 from scipy.interpolate import griddata
 import random
-import matplotlib.pyplot as plt
-import numpy as np
 import re
+from mpl_toolkits.mplot3d import Axes3D
 
 def threed_barplot(data):
     fig = plt.figure(figsize=(10, 6))
@@ -44,7 +42,6 @@ def threed_barplot(data):
     plt.show()
 
 def surface_plot(data):
-    from mpl_toolkits.mplot3d import Axes3D
 
     fig = plt.figure(figsize=(10, 6))
     ax = fig.add_subplot(111, projection='3d')
@@ -54,8 +51,6 @@ def surface_plot(data):
     x = np.arange(len(metrics))
     y = np.arange(len(features))
     x, y = np.meshgrid(x, y)
-
-    # Data matrix
     z = data
 
     # Plot surface
@@ -78,8 +73,6 @@ def surface_plot(data):
     plt.show()
 
 def three_scatter(data):
-    import matplotlib.pyplot as plt
-    import numpy as np
 
 
     metrics = ['Precision', 'Recall', 'F1-score']
@@ -121,22 +114,10 @@ def three_scatter(data):
 
 
 
-def bubble_plot():
-    import matplotlib.pyplot as plt
-    import numpy as np
-
+def bubble_plot(data):
 
     thresholds = [0.5, 0.7, 0.8, 0.9, 'cos>0.5+max_neg=2']  
     metrics = ['Precision', 'Recall', 'F1-score']
-
-  
-    data = [
-        [0.94, 0.93, 0.94, 1188],
-        [0.94, 0.94, 0.94, 1124],
-        [0.94, 0.94, 0.94, 1020],
-        [0.97, 0.97, 0.97, 717],
-        [0.92, 0.91, 0.92, 1425]
-    ]
 
     # Convert to arrays
     data = np.array(data)
@@ -154,7 +135,6 @@ def bubble_plot():
 
         ax.scatter(xs, ys, zs, s=support/2, alpha=0.7, label=str(threshold_label), edgecolor='k')
 
-    # --- Labels and Ticks --- #
     ax.set_xlabel('Threshold Index')
     ax.set_ylabel('Metric Type')
     ax.set_zlabel('Metric Value')
@@ -238,7 +218,7 @@ def parse_latex_results_structured(latex_text):
 
     return all_tables
 
-def support_bubble_plot():
+def support_bubble_plot(data):
     fig = plt.figure(figsize=(12, 8))
     ax = fig.add_subplot(111, projection='3d')
 
@@ -249,14 +229,6 @@ def support_bubble_plot():
     supports_flat = []
     thresholds = [0.5, 0.7, 0.8, 0.9, 'cos>0.5+max_neg=2']  
     metrics = ['Precision', 'Recall', 'F1-score']
-
-    data = [
-        [0.94, 0.93, 0.94, 1188],
-        [0.94, 0.94, 0.94, 1124],
-        [0.94, 0.94, 0.94, 1020],
-        [0.97, 0.97, 0.97, 717],
-        [0.92, 0.91, 0.92, 1425]
-    ]
     data = np.array(data)
     metric_values = data[:, :3]
     supports = data[:, 3]
@@ -307,7 +279,7 @@ def bubble_3d_plot(dataset_name,all_tables, metric_label='macro-avg', metric_fie
             metric_value = metric_row[metric_field]
             support = metric_row['support']
         except StopIteration:
-            continue  # se macro-avg non c'è, salta
+            continue  
         
         # Save data
         xs.append(cosine)
@@ -449,8 +421,6 @@ def bubble_3d_plot_with_support(dataset_name,all_tables, metric_label='macro-avg
 
     # Normalize support for bubble size
     supports_size = np.array(supports) / np.max(supports) * 300  # size scaling factor
-
-    # Scatter plot
     sc = ax.scatter(xs, ys, zs, s=supports_size, c=supports, cmap='viridis', alpha=0.8, edgecolor='k')
 
     # Colorbar to show support scale
@@ -540,11 +510,7 @@ def barplot_last5_with_support(dataset_name,all_tables, metric_label='macro-avg'
 def barplot_randomN_sorted_with_support(dataset_name,all_tables, N=8, metric_label='macro-avg', random_seed=42):
     # Set seed for reproducibility
     random.seed(random_seed)
-
-    # Prendi N tabelle a caso
     selected_tables = random.sample(all_tables, N)
-
-    # Ordina per cosine_similarity crescente
     selected_tables_sorted = sorted(selected_tables, key=lambda table: table['cosine_similarity'])
 
     thresholds_labels = []
@@ -678,68 +644,12 @@ def barplot_randomN_sorted_dualaxis(dataset_name,all_tables, N=8, metric_label='
 # surface_plot(data)
 # three_scatter(data)
 # support_bubble_plot()
-from mpl_toolkits.mplot3d import Axes3D
-import matplotlib.pyplot as plt
-import numpy as np
+
 
 # Example data: thresholds (as "x"), metrics (as "y"), scores (as "z")
 thresholds = np.array([0.5, 0.7, 0.8, 0.9])
 metrics = np.array([0, 1, 2])  # 0: precision, 1: recall, 2: f1-score
 
-# Simulated "score matrix"
-scores = np.array([
-    [0.94, 0.93, 0.93],
-    [0.94, 0.94, 0.94],
-    [0.97, 0.97, 0.97],
-    [0.94, 0.93, 0.94],
-])
-
-# # Meshgrid
-# X, Y = np.meshgrid(thresholds, metrics)
-
-# fig = plt.figure(figsize=(10, 7))
-# ax = fig.add_subplot(111, projection='3d')
-# surf = ax.plot_surface(X, Y, scores.T, cmap='viridis')
-
-# ax.set_xlabel('Threshold')
-# ax.set_ylabel('Metric (0: Precision, 1: Recall, 2: F1-score)')
-# ax.set_zlabel('Score')
-# ax.set_title('3D Surface Plot of Metrics across Thresholds')
-# fig.colorbar(surf, shrink=0.5, aspect=10)
-# plt.show()
-
-# fig = plt.figure(figsize=(10, 7))
-# ax = fig.add_subplot(111, projection='3d')
-
-# # Threshold as x-axis, metric index as y-axis, score as z-axis
-# for i, metric in enumerate(['Precision', 'Recall', 'F1-score']):
-#     ax.scatter(thresholds, [i]*len(thresholds), scores[:, i],
-#                label=metric, s=50)
-
-# ax.set_xlabel('Threshold')
-# ax.set_ylabel('Metric (0: Precision, 1: Recall, 2: F1-score)')
-# ax.set_zlabel('Score')
-# ax.set_title('3D Scatter Plot of Metrics by Threshold')
-# ax.legend()
-# plt.show()
-
-# fig = plt.figure(figsize=(10, 7))
-# ax = fig.add_subplot(111, projection='3d')
-
-# _x = thresholds
-# _y = np.array([0, 1, 2])
-# _xx, _yy = np.meshgrid(_x, _y)
-# x, y = _xx.ravel(), _yy.ravel()
-# z = np.zeros_like(x)
-# dz = scores.T.ravel()
-
-# ax.bar3d(x, y, z, 0.05, 0.3, dz, shade=True)
-
-# ax.set_xlabel('Threshold')
-# ax.set_ylabel('Metric (0: Precision, 1: Recall, 2: F1-score)')
-# ax.set_zlabel('Score')
-# ax.set_title('3D Bar Plot of Metrics by Threshold')
-# plt.show()
 latex_text = read_latex_file('/Users/sepicacchiv/Desktop/thesis/results/classification_report_latex.txt') 
 
 # Parse LaTeX table
@@ -753,19 +663,3 @@ bubble_3d_plot_with_support('ncit_doid_draft_',all_tables)
 barplot_last5_with_support('ncit_doid_draft_',all_tables)
 barplot_randomN_sorted_with_support('ncit_doid_draft_',all_tables)
 barplot_randomN_sorted_dualaxis('ncit_doid_draft_',all_tables)
-# supports = np.array([1124, 1020, 717, 1188])
-# colors = supports  # Color by support
-
-# fig = plt.figure(figsize=(10, 7))
-# ax = fig.add_subplot(111, projection='3d')
-
-# for i, metric in enumerate(['Precision', 'Recall', 'F1-score']):
-#     scatter = ax.scatter(thresholds, [i]*len(thresholds), scores[:, i],
-#                          c=colors, cmap='coolwarm', s=50)
-
-# ax.set_xlabel('Threshold')
-# ax.set_ylabel('Metric (0: Precision, 1: Recall, 2: F1-score)')
-# ax.set_zlabel('Score')
-# ax.set_title('3D Scatter Plot of Metrics by Threshold\nColor-coded by Support')
-# fig.colorbar(scatter, label='Support')
-# plt.show()

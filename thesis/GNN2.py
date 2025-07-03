@@ -13,14 +13,15 @@ import torch.optim as optim
 from sklearn.metrics import roc_auc_score
 from sklearn.model_selection import train_test_split
 
+''' This code was used for the implementation of a GNN on a company owned dataset and is therefore not reproducible '''
+
 # Define Namespaces
 SKOS = Namespace("http://www.w3.org/2004/02/skos/core#")
 SKOSXL = Namespace("http://www.w3.org/2008/05/skos-xl#")
 RDF = Namespace("http://www.w3.org/1999/02/22-rdf-syntax-ns#")
 
-# Load RDF Graph
 g = Graph()
-g.parse("new_taxonomy_skos.xml", format="xml")  # Update with actual file
+g.parse('dataset', format="xml")  
 
 # Initialize NetworkX Graph
 G = nx.DiGraph()
@@ -41,8 +42,6 @@ for concept in g.subjects(predicate=RDF.type, object=SKOS.Concept):
         G.add_edge(str(concept), str(related), relation="related")
 
 print(f"Graph has {G.number_of_nodes()} nodes and {G.number_of_edges()} edges.")
-
-# Load SpaCy Model
 nlp = spacy.load("en_core_web_md")
 
 # Generate Node Embeddings
@@ -58,7 +57,6 @@ for node in G.nodes:
         if attr not in G.nodes[node]:
             G.nodes[node][attr] = default_value
 
-# Convert Node Embeddings to DataFrame
 df_embeddings = pd.DataFrame.from_dict(node_embeddings, orient="index")
 
 # Convert NetworkX graph to PyTorch Geometric format
@@ -141,21 +139,8 @@ def predict_relation(concept1, concept2):
         return f"Relationship Score: {score:.4f} (Higher = More Likely Related)"
 
 # Example Prediction
-example_concept1 = list(G.nodes())[0]  # Replace with actual concept URIs
+example_concept1 = list(G.nodes())[0]  
 example_concept2 = list(G.nodes())[1]
 print(predict_relation(example_concept1, example_concept2))
 
-# Visualize Results
-# import matplotlib.pyplot as plt
-# from sklearn.manifold import TSNE
 
-# with torch.no_grad():
-#     embeddings = model(graph_data,test_edges).numpy()
-
-# X_tsne = TSNE(n_components=2).fit_transform(embeddings)
-
-# plt.figure(figsize=(8, 6))
-# plt.scatter(X_tsne[:, 0], X_tsne[:, 1], c=test_labels.numpy(), cmap="viridis", marker="o")
-# plt.colorbar()
-# plt.title("Graph Neural Network Clustering of Taxonomy Concepts")
-# plt.show()
